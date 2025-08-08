@@ -1,9 +1,17 @@
 const apiKey = '9X5YMXR45ZDWNTP235UBM4P64';
 const contentDiv = document.querySelector('#content-div');
+const submitBtn = document.querySelector("#location-submit");
+const locationInput = document.querySelector("#location-input");
 
 //onclick of submit button needs to clear weather rows
+submitBtn.addEventListener("click", () => {
+    clearRows()
+    getWeather(locationInput.value)
+    locationInput.value = "";
+})
 
 async function getWeather (location) {
+    console.log(location);
     const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' + location +"?key=" + apiKey);
 
 
@@ -15,6 +23,12 @@ async function getWeather (location) {
     }
     
     
+}
+
+function clearRows () {
+    while(contentDiv.lastChild.id != "weather-location") {
+        contentDiv.removeChild(contentDiv.lastChild);
+    }
 }
 
 function setLocation (location) {
